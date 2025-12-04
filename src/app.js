@@ -6,12 +6,14 @@ const app=express();
 
 app.use(express.json());
 
+// ADD TO DATABASE
 app.post('/signup',async(req,res)=>{
    const user=  UserModel(req.body);
    await user.save();
   res.send("added to database");
 });
 
+// FIND FROM DATABASE
 app.get('/user',async(req,res)=>{
   const email=req.body.email;
   try{
@@ -30,7 +32,7 @@ app.get('/user',async(req,res)=>{
    
 });
 
-
+// FIND FROM DATABASE
 app.get('/feed',async(req,res)=>{
   try{
     const user= await UserModel.find({});
@@ -41,7 +43,7 @@ app.get('/feed',async(req,res)=>{
   }
 });
 
-
+// DELETE FROM DATABASE
 app.delete('/user',async(req,res)=>{
   const userId= req.body.userId;
   try{
@@ -53,10 +55,8 @@ app.delete('/user',async(req,res)=>{
   }
 });
 
+// UPDATE TO DATABASE
 
-app.patch('/user',(req,res)=>{
-
-})
 
 
 
