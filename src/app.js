@@ -57,6 +57,18 @@ app.delete('/user',async(req,res)=>{
 
 // UPDATE TO DATABASE
 
+app.patch('/user',async(req,res)=>{
+  const userId= req.body.userId;
+  const data=req.body;
+  try{
+    await UserModel.findByIdAndUpdate({_id:userId},data);
+    res.send("updated successfully"); 
+
+  }catch(e){
+    res.send("error finding user");
+  }
+})
+
 
 
 
