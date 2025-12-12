@@ -1,90 +1,30 @@
 const express=require('express');
 const connectDB=require('./config/database.js');
-const passwordValidate=require('./Utils/validation.js');
 
-
-const bcrypt = require('bcrypt');
 const UserModel=require('./models/user.js');
 const cookieParser = require('cookie-parser');
-const jwt=require('jsonwebtoken');
+
 const userAuth=require('./middlewares/auth.js');
 
-
+const authRouter=require('./routes/auth.js');
+const profileRouter=require('./routes/profile.js')
+const requestRouter=require('./routes/requests.js')
 const app=express();
 
 app.use(express.json());
 app.use(cookieParser());
 
-// ADD TO DATABASE
-
-app.post('/signup',async(req,res)=>{
-
-  const {firstName,lastName,email,password}=req.body;
-  passwordValidate(req);
- const passwordHash= await bcrypt.hash(password, 10);
-
- 
-   const user=  UserModel({
-    firstName,
-    lastName,
-    email,
-    password:passwordHash
-   });
-   await user.save();
-  res.send("added to database");
-});
+app.use('/',authRouter);
+app.use('/',profileRouter);
+app.use('/',requestRouter);
 
 
-//LOGIN API
-
-app.post('/login',async(req,res)=>{
-  try{
-  const{email,password}=req.body;
-  const user=await UserModel.findOne({email:email});
-  if(!user){
-    throw new Error("email doesnot match");
-  }
-  const check= await bcrypt.compare(password,user.password);
-  if(check){
-    const token= await jwt.sign({_id:user._id}, "DEV@Tinder$790");
-    console.log(token);
-    res.cookie("token",token);
-    res.send("login successful");
-  }
-  else{
-    throw new Error("passoword doesnot match");
-  }
-}catch(e){
-  res.status(400).send("doesnot able to login");
-}
-  
-});
 
 
-//geting profile after login
 
-app.get('/profile',userAuth,async(req,res)=>{
-  // const cookies=req.cookies;
-  // console.log(cookies);
-  // const {token}=cookies;
-  // const decodeMessage=await jwt.verify(token,"DEV@Tinder$790");
-  
-  // const{_id}=decodeMessage;
-  // const user=await UserModel.find({_id:_id});
-  // console.log(user);
-  // res.send(user);
-  const user=req.user;
-  res.send(user);
-});
 
-app.post('/sendConnectionRequest', userAuth,(req,res)=>{
-  const user=req.user;
-  console.log(user);
-  // const {firstName}=user;
-  res.send(user.firstName + " "+"is sending conection request");
-  
- 
-})
+
+
 
 // FIND FROM DATABASE
 app.get('/user',async(req,res)=>{
