@@ -6,7 +6,7 @@ const cokieParser=require("cookie-parser");
 const userAuth=async(req,res,next)=>{
     try{
     const cookies=req.cookies;
-    const {token}=cookies;
+    const {token}=cookies;  
     if(!token){
         throw new Error("Token is not valid");  
     }

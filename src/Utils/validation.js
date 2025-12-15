@@ -7,5 +7,14 @@ const passwordValidate=(req)=>{
   }
 }
 
-module.exports=passwordValidate
+
+const validateEditProfileData=(req)=>{
+  allowedEditFields=['firstName','lastName','age','about','skills','gender'];
+  
+ const isEditAllowed= Object.keys(req.body).every(field=> allowedEditFields.includes(field));
+ return isEditAllowed;
+
+}
+
+module.exports={passwordValidate,validateEditProfileData}
 

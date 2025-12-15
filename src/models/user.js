@@ -27,6 +27,9 @@ const userSchema=mongoose.Schema({
             }
         }
     },
+    age:{
+        type:Number,
+    },
     about:{
         type:String,
         default:"hello user"
@@ -38,7 +41,11 @@ const userSchema=mongoose.Schema({
             throw new Error("gender ata not valid");
           }
         }
-    }
+    },
+    skills:{
+        type:[String],
+
+    },
    
 },{timestamps:true})
 

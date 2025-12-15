@@ -50,9 +50,16 @@ authRouter.post('/login',async(req,res)=>{
     throw new Error("passoword doesnot match");
   }
 }catch(e){
-  res.status(400).send("doesnot able to login");
+  res.status(400).send(e+"doesnot able to login");
 }
   
 });
+
+//LOGOUT
+
+authRouter.post('/logout',async(req,res)=>{
+    res.cookie("token",null,{expires: new Date(Date.now())});
+    res.send("logout successfully");
+})
 
 module.exports=authRouter;

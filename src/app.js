@@ -27,82 +27,82 @@ app.use('/',requestRouter);
 
 
 // FIND FROM DATABASE
-app.get('/user',async(req,res)=>{
-  const email=req.body.email;
-  try{
-    const user=await UserModel.find({email:email});
-    if(user.length===0){
-      res.status(404).send("no matching data found");
-    }
-    else{
-          res.send(user);
-    }
+// app.get('/user',async(req,res)=>{
+//   const email=req.body.email;
+//   try{
+//     const user=await UserModel.find({email:email});
+//     if(user.length===0){
+//       res.status(404).send("no matching data found");
+//     }
+//     else{
+//           res.send(user);
+//     }
    
-  }
-  catch(e){
-    res.status(400).send("error finding the user");
-  }
+//   }
+//   catch(e){
+//     res.status(400).send("error finding the user");
+//   }
    
-});
+// });
 
 // FIND FROM DATABASE
-app.get('/feed',async(req,res)=>{
-  try{
-    const user= await UserModel.find({});
-    res.send(user);
-  }
-  catch(e){
-    res.status(400).send("error finding the user");
-  }
-});
+// app.get('/feed',async(req,res)=>{
+//   try{
+//     const user= await UserModel.find({});
+//     res.send(user);
+//   }
+//   catch(e){
+//     res.status(400).send("error finding the user");
+//   }
+// });
 
 // DELETE FROM DATABASE
-app.delete('/user',async(req,res)=>{
-  const userId= req.body.userId;
-  try{
-      const user=await UserModel.findByIdAndDelete({_id:userId});
-      res.send("user deleted successfully");
-  }
-  catch(e){
-    res.status(400).send("error finding user");
-  }
-});
+// app.delete('/user',async(req,res)=>{
+//   const userId= req.body.userId;
+//   try{
+//       const user=await UserModel.findByIdAndDelete({_id:userId});
+//       res.send("user deleted successfully");
+//   }
+//   catch(e){
+//     res.status(400).send("error finding user");
+//   }
+// });
 
 // UPDATE TO DATABASE
 
-app.patch('/user',async(req,res)=>{
-  const userId= req.body.userId;
-  const data=req.body;
+// app.patch('/user',async(req,res)=>{
+//   const userId= req.body.userId;
+//   const data=req.body;
   
- try{
+//  try{
 
-    const allowUpdates=["userId","firstName","lastName","password","about","gender"];
-  const isUpdateAllowed=Object.keys(data).every(k=>allowUpdates.includes(k));
-  if(!isUpdateAllowed){
-    throw new Error("update not allowed");
-  }
-    const user=await UserModel.findByIdAndUpdate({_id:userId},data,{
-      runValidators:true
-    });
-    res.send("updated successfully"); 
+//     const allowUpdates=["userId","firstName","lastName","password","about","gender"];
+//   const isUpdateAllowed=Object.keys(data).every(k=>allowUpdates.includes(k));
+//   if(!isUpdateAllowed){
+//     throw new Error("update not allowed");
+//   }
+//     const user=await UserModel.findByIdAndUpdate({_id:userId},data,{
+//       runValidators:true
+//     });
+//     res.send("updated successfully"); 
 
-  }catch(e){
-    res.send("error finding user");
-  }
-})
+//   }catch(e){
+//     res.send("error finding user");
+//   }
+// })
 
 //DELETE FROM DATABASE
-app.delete('/testdelete',async(req,res)=>{
-  const email=req.body.email;
-  try{
-     const user=await UserModel.findOneAndDelete({email:email});
-  res.send("delete successful");
+// app.delete('/testdelete',async(req,res)=>{
+//   const email=req.body.email;
+//   try{
+//      const user=await UserModel.findOneAndDelete({email:email});
+//   res.send("delete successful");
     
-  }catch(e){
-    res.send("error delete user");
-  }
+//   }catch(e){
+//     res.send("error delete user");
+//   }
  
-})
+// })
 
 
 
