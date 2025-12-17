@@ -1,7 +1,7 @@
 const express=require('express');
 const bcrypt = require('bcrypt');
 const jwt=require('jsonwebtoken');
-const passwordValidate=require('../Utils/validation.js');
+const {passwordValidate}=require('../Utils/validation.js');
 const UserModel=require('../models/user.js');
 
 const authRouter=express.Router();
@@ -24,7 +24,7 @@ authRouter.post('/signup',async(req,res)=>{
    await user.save();
   res.send("added to database");
 }catch(e){
-    res.status(400).send("couldnot added to database");
+    res.status(400).send("couldnot added to database"+e);
 }
 });
 

@@ -1,6 +1,7 @@
 const express=require('express');
 const userAuth=require('../middlewares/auth.js');
 const {validateEditProfileData}=require('../Utils/validation.js');
+const UserModel = require('../models/user.js');
 
 
 const profileRouter=express.Router();
@@ -24,10 +25,13 @@ profileRouter.patch('/profile/edit', userAuth,async(req,res)=>{
     }
 
     const loggedInUser=req.user;
+    // const {_id}=req.user;
+    // const update= await UserModel.findByIdAndUpdate({_id:_id},req.body);
     Object.keys(req.body).forEach(e=>loggedInUser[e]=req.body[e]);
     await loggedInUser.save();
 
-    res.send(`${loggedInUser.firstName} your profile updated successfully`);
+     res.send(`${loggedInUser.firstName} your profile updated successfully`);
+   
     
 
   }catch(e){
