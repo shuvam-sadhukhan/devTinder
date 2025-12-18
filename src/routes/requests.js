@@ -28,6 +28,11 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
       return res.status(400).json({message:'connection request already exists'})
     }
 
+    if(toUserId===fromUserId){
+      return res.status(400).json({message:'connection request cannot be made'})
+
+    }
+
     // touserid check
 
     const existToUserId= await UserModel.findById({_id:toUserId});
@@ -42,7 +47,7 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
       status
     });
    const data= await connectionRequest.save();
-    res.json({message:`connection request send successfully to`,data:data});
+    res.json({message:`${req.user.firstName} is ${status} in ${existToUserId.firstName}`,data:data});
 
   }catch(e){
     res.status(400).send("error"+e.message);
