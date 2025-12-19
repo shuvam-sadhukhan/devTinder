@@ -3,10 +3,11 @@ const userAuth=require('../middlewares/auth.js');
 const connectionRequestModel=require('../models/connectionRequest.js');
 const UserModel=require('../models/user.js');
 
+
 const requestRouter=express.Router();
 
 
-
+ // sending connection request
 requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
   try{
     const fromUserId=req.user._id;
@@ -40,7 +41,7 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
       return res.status(400).json({message:'no user found'});
     }
 
-
+ // save to database
     const connectionRequest= new connectionRequestModel({
       fromUserId,
       toUserId,
@@ -55,6 +56,32 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
  
   
  
+})
+
+
+// receieving connection request
+requestRouter.post('/request/review/:status/:requestId',userAuth,async(req,res)=>{
+
+  try{
+      const loggedInUser=req.user;
+      const status=req.params.status;
+      const requestId=req.params.requestId;
+      const allowedStatus=["accepted","rejected"];
+
+      if(!allowedStatus.includes(status)){
+        return res.status(400).json({message:"status not allowed"})
+      }
+      
+      const connectionRequest= await connectionRequestModel.findOne({
+        _id:requestId,toUserId:loggedInUser._id, status:'interested'});
+        connectionRequest.status=status;
+        const data=await connectionRequestModel.save();
+
+        res.json({message:`${loggedInUser.firstName} ${status} onnection request of `,data:data})
+
+  }catch(e){
+    res.status(400).send("error message:"+e);
+  }
 })
 
 
