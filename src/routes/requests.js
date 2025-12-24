@@ -34,7 +34,7 @@ requestRouter.post('/request/send/:status/:toUserId', userAuth,async(req,res)=>{
 
     }
 
-    // touserid check
+    // touserid check in db
 
     const existToUserId= await UserModel.findById({_id:toUserId});
     if(!existToUserId){
@@ -75,12 +75,12 @@ requestRouter.post('/request/review/:status/:requestId',userAuth,async(req,res)=
       const connectionRequest= await connectionRequestModel.findOne({
         _id:requestId,toUserId:loggedInUser._id, status:'interested'});
         connectionRequest.status=status;
-        const data=await connectionRequestModel.save();
+        const data=await connectionRequest.save();
 
         res.json({message:`${loggedInUser.firstName} ${status} onnection request of `,data:data})
 
   }catch(e){
-    res.status(400).send("error message:"+e);
+    res.status(400).send("error message:"+e.message);
   }
 })
 
