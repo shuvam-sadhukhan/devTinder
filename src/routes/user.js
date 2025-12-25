@@ -26,8 +26,18 @@ userRouter.get('/user/connections', userAuth,async(req,res)=>{
       {fromUserId:loggedInUser._id, status:'accepted'},
       {toUserId:loggedInUser._id, status:'accepted'},
           ]
-}).populate('fromUserId',['firstName','lastName']);
-   res.json({message:"see connections accepted", data:data});
+}).populate("fromUserId",["firstName","lastName"]).populate("toUserId",["firstName","lastName"]);
+  
+  const data1=data.map((e)=>{
+   if(e.fromUserId._id.toString()===loggedInUser._id.toString()){
+      return e.toUserId;
+   }
+   else{
+      return e.fromUserId;
+   }
+})
+
+   res.json({message:"see connections accepted", data:data1});
    }catch(e){
       res.status(400).send("error"+e.message);
    }
