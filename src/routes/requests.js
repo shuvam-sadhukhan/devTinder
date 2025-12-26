@@ -74,6 +74,7 @@ requestRouter.post('/request/review/:status/:requestId',userAuth,async(req,res)=
       
       const connectionRequest= await connectionRequestModel.findOne({
         _id:requestId,toUserId:loggedInUser._id, status:'interested'});
+        
         connectionRequest.status=status;
         const data=await connectionRequest.save();
 
@@ -83,6 +84,8 @@ requestRouter.post('/request/review/:status/:requestId',userAuth,async(req,res)=
     res.status(400).send("error message:"+e.message);
   }
 })
+
+
 
 
 module.exports=requestRouter
