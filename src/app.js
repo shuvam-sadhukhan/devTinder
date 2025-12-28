@@ -21,55 +21,6 @@ app.use('/',requestRouter);
 app.use('/',userRouter);
 
 
-
-
-
-
-
-
-
-// FIND FROM DATABASE
-// app.get('/user',async(req,res)=>{
-//   const email=req.body.email;
-//   try{
-//     const user=await UserModel.find({email:email});
-//     if(user.length===0){
-//       res.status(404).send("no matching data found");
-//     }
-//     else{
-//           res.send(user);
-//     }
-   
-//   }
-//   catch(e){
-//     res.status(400).send("error finding the user");
-//   }
-   
-// });
-
-// FIND FROM DATABASE
-// app.get('/feed',async(req,res)=>{
-//   try{
-//     const user= await UserModel.find({});
-//     res.send(user);
-//   }
-//   catch(e){
-//     res.status(400).send("error finding the user");
-//   }
-// });
-
-// DELETE FROM DATABASE
-// app.delete('/user',async(req,res)=>{
-//   const userId= req.body.userId;
-//   try{
-//       const user=await UserModel.findByIdAndDelete({_id:userId});
-//       res.send("user deleted successfully");
-//   }
-//   catch(e){
-//     res.status(400).send("error finding user");
-//   }
-// });
-
 // UPDATE TO DATABASE
 
 // app.patch('/user',async(req,res)=>{
@@ -92,25 +43,6 @@ app.use('/',userRouter);
 //     res.send("error finding user");
 //   }
 // })
-
-//DELETE FROM DATABASE
-// app.delete('/testdelete',async(req,res)=>{
-//   const email=req.body.email;
-//   try{
-//      const user=await UserModel.findOneAndDelete({email:email});
-//   res.send("delete successful");
-    
-//   }catch(e){
-//     res.send("error delete user");
-//   }
- 
-// })
-
-
-
-
-
-
 connectDB().then(()=>{
   console.log('database connected');
   app.listen(3000,()=>{
