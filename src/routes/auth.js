@@ -50,7 +50,7 @@ authRouter.post('/login',async(req,res)=>{
     throw new Error("passoword doesnot match");
   }
 }catch(e){
-  res.status(400).send(e+"doesnot able to login");
+  res.status(400).send(e.message+"doesnot able to login");
 }
   
 });
