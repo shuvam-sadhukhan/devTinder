@@ -44,7 +44,7 @@ authRouter.post('/login',async(req,res)=>{
     const token= await jwt.sign({_id:user._id}, "DEV@Tinder$790");
     console.log(token);
     res.cookie("token",token);
-    res.send("login successful");
+    res.send(user);
   }
   else{
     throw new Error("passoword doesnot match");
