@@ -38,6 +38,7 @@ authRouter.post('/login',async(req,res)=>{
   const user=await UserModel.findOne({email:email});
   if(!user){
     throw new Error("email doesnot match");
+   
   }
   const check= await bcrypt.compare(password,user.password);
   if(check){
@@ -48,9 +49,10 @@ authRouter.post('/login',async(req,res)=>{
   }
   else{
     throw new Error("passoword doesnot match");
+   
   }
 }catch(e){
-  res.status(400).send(e.message+"doesnot able to login");
+  res.status(400).send(e.message);
 }
   
 });
