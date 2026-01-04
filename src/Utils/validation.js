@@ -9,7 +9,7 @@ const passwordValidate=(req)=>{
 
 
 const validateEditProfileData=(req)=>{
-  allowedEditFields=['firstName','lastName','age','about','skills','gender'];
+  allowedEditFields=['firstName','lastName','age','about','skills','gender','photoUrl'];
   
  const isEditAllowed= Object.keys(req.body).every(field=> allowedEditFields.includes(field));
  return isEditAllowed;

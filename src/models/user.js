@@ -46,6 +46,10 @@ const userSchema=mongoose.Schema({
         type:[String],
 
     },
+    photoUrl:{
+        type:String,
+        default:"https://static.vecteezy.com/system/resources/previews/019/834/387/original/essential-interface-icon-vector.jpg"
+    }
    
 },{timestamps:true})
 
