@@ -73,7 +73,7 @@ userRouter.get('/feed',userAuth,async(req,res)=>{
          {_id: {$ne:loggedInUser._id}},
       ],
      
-    }).select("firstName lastName").skip(skip).limit(limit);
+    }).select("firstName lastName age gender about photoUrl").skip(skip).limit(limit);
 
 
     res.send(users);
