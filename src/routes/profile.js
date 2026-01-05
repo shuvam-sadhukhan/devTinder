@@ -28,10 +28,10 @@ profileRouter.patch('/profile/edit', userAuth,async(req,res)=>{
     // const {_id}=req.user;
     // const update= await UserModel.findByIdAndUpdate({_id:_id},req.body);
     Object.keys(req.body).forEach(e=>loggedInUser[e]=req.body[e]);
-    await loggedInUser.save();
+    const data=await loggedInUser.save();
 
-     res.send(`${loggedInUser.firstName} your profile updated successfully`);
-   
+    //  res.send(`${loggedInUser.firstName} your profile updated successfully`);
+     res.json({message:`${loggedInUser.firstName} your profile updated successfully`,data:data});   
     
 
   }catch(e){
