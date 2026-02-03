@@ -20,9 +20,10 @@ const app=express();
 
 require("dotenv").config();
 const PORT=process.env.PORT || 3000;
+allowOrigin=["http://localhost:5173","https://codesphere-black.vercel.app/"];
 
 app.use(cors({
-  origin:["http://localhost:5173","https://codesphere-black.vercel.app/"],
+  origin:allowOrigin,
   credentials:true
 
 }));
