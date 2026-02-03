@@ -19,6 +19,7 @@ const initialSocket = require('./Utils/socket.js');
 const app=express();
 
 require("dotenv").config();
+const PORT=process.env.PORT || 3000;
 
 app.use(cors({
   origin:"http://localhost:5173",
@@ -42,7 +43,7 @@ initialSocket(server);
 
 connectDB().then(()=>{
   console.log('database connected');
-  server.listen(process.env.PORT,()=>{
+  server.listen(PORT,()=>{
     console.log("server is successfully running on port:");
 });
 }).catch((e)=>{
