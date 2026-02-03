@@ -4,7 +4,7 @@ const chatModel = require("../models/chats");
 
 
 const initialSocket=(server)=>{
-  allowOrigin=["http://localhost:5173","https://codesphere-black.vercel.app/"];
+  allowOrigin=["http://localhost:5173","https://codesphere-black.vercel.app"];
 
   const io=socket(server,{
   cors:{
